@@ -17,7 +17,7 @@ const ProductsGrid = ({ selectedCategory }) => {
   useEffect(() => {
     dispatch(fetchTodos());
   }, []);
-
+  // NEed to add categrory
   const filteredProducts = selectedCategory
     ? allItems.filter((item) => item.category === selectedCategory)
     : allItems;
