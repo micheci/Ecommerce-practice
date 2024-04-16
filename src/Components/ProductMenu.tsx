@@ -5,7 +5,7 @@ const ProductMenu = ({ onCategorySelect }) => {
   //const [anchorEl, setAnchorEl] = useState(null);
 
   const categories = [
-    "Bottles | Cups",
+    "Bottles",
 
     "Hoodies",
     "Mousemats",

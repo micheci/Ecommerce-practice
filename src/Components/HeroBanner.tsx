@@ -15,7 +15,7 @@ const HeroBanner = () => {
 
   useEffect(() => {
     if (heroBanner && heroBanner.length > 0) {
-      console.log("Hero banner URL:", heroBanner[0].url);
+      //   console.log("Hero banner URL:", heroBanner[0].url);
     }
   }, [heroBanner]);
 
