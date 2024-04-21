@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ProductMenu onCategorySelect={handleCategorySelect} />
+        {/* <ProductMenu onCategorySelect={handleCategorySelect} /> */}
         <Routes>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />

@@ -13,7 +13,7 @@ const Home = () => {
     setSelectedCategory(category);
   };
   return (
-    <Container>
+    <Container maxWidth="false">
       <Navbar />
       <ProductMenu onCategorySelect={handleCategorySelect} />
       <HeroBanner />
