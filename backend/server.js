@@ -2,6 +2,8 @@
 import express, { json } from 'express';
 import  pool  from './db.js';
 import cors from 'cors';
+import session from "express-session";
+import passport from "passport"
 
 // Create an Express application
 const app = express();
@@ -11,6 +13,14 @@ const port = 3000;
 app.use(json());
 // Enable CORS for all routes
 app.use(cors());
+app.use(session({
+  secret: "bellaco",
+  saveUninitialized:false,
+  resave:false,
+  cookie:{
+    maxAge: 60*60*1000
+  }
+}))
 
 
 // Define routes
@@ -18,6 +28,8 @@ app.use(cors());
 // Getting all items
 app.get('/', async (req, res) => {
   try {
+    console.log(req.session)
+    console.log(req.sessionID)
     const result = await pool.query('SELECT * FROM items');
     res.json(result.rows);
   } catch (err) {
