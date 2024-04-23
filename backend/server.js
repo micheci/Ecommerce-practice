@@ -1,9 +1,9 @@
 // Import required modules
 import express, { json } from 'express';
-import  pool  from './db.js';
 import cors from 'cors';
 import session from "express-session";
 import passport from "passport"
+import router from './routes/routes.js';
 
 // Create an Express application
 const app = express();
@@ -22,33 +22,8 @@ app.use(session({
   }
 }))
 
-
-// Define routes
-
-// Getting all items
-app.get('/', async (req, res) => {
-  try {
-    console.log(req.session)
-    console.log(req.sessionID)
-    const result = await pool.query('SELECT * FROM items');
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  }
-});
-// GET route get Hero Banner URL
-app.get('/getHeroBanner', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM heroBanner');
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-
+// Use the router
+app.use('/', router);
 
 // Start the server
 app.listen(port, () => {

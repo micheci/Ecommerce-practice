@@ -1,6 +1,8 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import ProductDetails from "./Pages/ProductDetails";
+import SignIn from "./Pages/SignIn";
+
 import ProductMenu from "./Components/ProductMenu";
 import { useState } from "react";
 
@@ -20,6 +22,7 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="profile" element={<div>Not Found</div>} />
           <Route path="product/:id" element={<ProductDetails />} />
+          <Route path="signIn" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </>
