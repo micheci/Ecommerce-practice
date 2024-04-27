@@ -5,6 +5,7 @@ import session from "express-session";
 import dotenv from "dotenv";
 import router from "./routes/routes.js";
 import auth from "./routes/auth.js";
+import user from "./routes/user.js";
 import passport from "passport";
 
 // Create an Express application
@@ -32,6 +33,7 @@ app.use(passport.session());
 // Use the router
 app.use("/", router);
 app.use("/auth", auth);
+app.use("/user", user);
 
 // Start the server
 app.listen(port, () => {
