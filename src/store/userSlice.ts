@@ -1,7 +1,12 @@
 import { createSlice, createAsyncThunk, SerializedError, PayloadAction } from '@reduxjs/toolkit';
 
-export const fetchUserData = createAsyncThunk('user/fetchUserData', async () => {
-  const response = await fetch('http://localhost:3000/user');
+export const fetchUserData = createAsyncThunk('user/fetchUserData', async (token: string) => {
+  console.log('inslice')
+    const response = await fetch('http://localhost:3000/user', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
   const data = await response.json();
   console.log(data, 'data');
   return data;

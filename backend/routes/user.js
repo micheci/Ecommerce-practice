@@ -5,10 +5,15 @@ import { authenticateToken } from "./auth.js";
 const router = express.Router();
 
 // Getting all items
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   try {
     console.log("hi");
-    const result = await pool.query("SELECT * FROM users limit 1");
+    console.log(req.user.id, "req.user");
+    const userId = req.user.id; // Extract the userId from req.user
+    console.log(userId, "userID");
+    const result = await pool.query("SELECT * FROM users where id = $1", [
+      userId,
+    ]);
     console.log(result.rows);
     res.json(result.rows);
   } catch (err) {

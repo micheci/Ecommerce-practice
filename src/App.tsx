@@ -6,6 +6,7 @@ import Dashboard from "./Pages/Dashboard";
 
 import ProductMenu from "./Components/ProductMenu";
 import { useState } from "react";
+import Cart from "./Pages/Card";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -25,6 +26,7 @@ function App() {
           <Route path="product/:id" element={<ProductDetails />} />
           <Route path="signIn" element={<SignIn />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </>

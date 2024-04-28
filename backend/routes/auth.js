@@ -49,14 +49,11 @@ router.post("/login", async (req, res) => {
       return;
     }
     if (await bcrypt.compare(password, userNameResult.rows[0].password)) {
-      const token = jwt.sign(
-        { id: userNameResult.id },
-        process.env.SECRET_KEY,
-        {
-          expiresIn: "1h",
-        }
-      );
-
+      const userId = userNameResult.rows[0].id;
+      console.log("Signing token with user ID:", userId);
+      const token = jwt.sign({ id: userId }, process.env.SECRET_KEY, {
+        expiresIn: "1h",
+      });
       res.json({ status: true, message: "Login successful", token: token });
     } else {
       res.json({ status: false, message: "Incorrect password" });
@@ -77,6 +74,7 @@ export const authenticateToken = (req, res, next) => {
   jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
     if (err) return res.sendStatus(403);
     req.user = user;
+    console.log(req.user, "user on auth.js");
     next(); // pass the execution off to whatever request the client intended
   });
 };

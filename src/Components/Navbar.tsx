@@ -1,5 +1,7 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { fetchUserData } from "../store/userSlice";
+import { useAppDispatch, useAppSelector } from "../store/store";
 
 const Navbar = () => {
   return (
