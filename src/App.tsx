@@ -1,20 +1,22 @@
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import ProductDetails from "./Pages/ProductDetails";
 import SignIn from "./Pages/SignIn";
 import Dashboard from "./Pages/Dashboard";
-
-import ProductMenu from "./Components/ProductMenu";
-import { useState } from "react";
 import Cart from "./Pages/Card";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const handleCategorySelect = (category) => {
-    console.log("Selected category:", category);
-    setSelectedCategory(category);
-  };
+  // Check if the user is authenticated
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("token")
+  );
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+    console.log(isAuthenticated, "isAuthenticated");
+  }, [isAuthenticated]);
   return (
     <>
       <BrowserRouter>
@@ -25,8 +27,16 @@ function App() {
           <Route path="profile" element={<div>Not Found</div>} />
           <Route path="product/:id" element={<ProductDetails />} />
           <Route path="signIn" element={<SignIn />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="dashboard/cart" element={<Cart />} />
+          <Route
+            path="dashboard"
+            element={
+              isAuthenticated ? <Dashboard /> : <Navigate to="/signIn" />
+            }
+          />
+          <Route
+            path="dashboard/cart"
+            element={isAuthenticated ? <Cart /> : <Navigate to="/signIn" />}
+          />
         </Routes>
       </BrowserRouter>
     </>

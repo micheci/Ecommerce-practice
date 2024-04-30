@@ -1,4 +1,9 @@
-interface UserInfo {
+export interface UserInfo {
+  id: number;
+  username: string;
+  password: string;
   first_name: string;
-  // Add more properties here as needed
+  last_name: string;
+  created_at: string;
+  updated_at: string;
 }

@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk, SerializedError, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, SerializedError } from '@reduxjs/toolkit';
+import { UserInfo } from '../Interfaces/user';
 
 export const fetchUserData = createAsyncThunk('user/fetchUserData', async (token: string) => {
   console.log('inslice')
@@ -9,17 +10,13 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async (token
   });
   const data = await response.json();
   console.log(data, 'data');
-  return data;
+  return data[0];
 });
 
-interface User {
-    name: string;
-    address: string;
-  }
 
 interface InitialState {
     isLoading: boolean;
-    data: unknown;
+    data: UserInfo | null;
     error: SerializedError | null;
 }
 
@@ -32,9 +29,7 @@ const initialState: InitialState = {
 const UserSlice = createSlice({
     name: 'User',
     initialState,
-    reducers: {setUserInfo: (state, action: PayloadAction<User>) => {
-      state.data = action.payload;
-    },},
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchUserData.pending, (state) => {
@@ -54,6 +49,5 @@ const UserSlice = createSlice({
             });
     },
 });
-export const { setUserInfo } = UserSlice.actions;
 
 export default UserSlice.reducer;

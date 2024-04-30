@@ -1,7 +1,7 @@
 // Importing necessary modules and functions
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUserData, setUserInfo } from "../store/userSlice";
+import { fetchUserData } from "../store/userSlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import {
   Grid,
@@ -11,6 +11,8 @@ import {
   Typography,
   Paper,
 } from "@material-ui/core";
+import { UserInfo } from "../Interfaces/user";
+import UserFieldDetails from "../Components/UserFieldDetails";
 
 const Dashboard = () => {
   // Getting the dispatch function from Redux
@@ -18,18 +20,20 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   // Getting the user data from the Redux store
-  const userInfo = useAppSelector((state) => state.user.data) as UserInfo;
-
+  const userInfo: UserInfo | null = useAppSelector((state) => state.user.data);
+  console.log(userInfo, "userinfo");
   useEffect(() => {
-    console.log("useEffect running");
     const token = localStorage.getItem("token") as string;
-    console.log(token, "spidr");
-    dispatch(fetchUserData(token)).then((result) => {
-      console.log("fetchUserData result", result);
-      dispatch(setUserInfo(result.payload[0]));
-    });
+    dispatch(fetchUserData(token));
   }, [dispatch]);
 
+  const handleLogout = () => {
+    // Remove the token from local storage
+    localStorage.removeItem("token");
+
+    // Redirect the user to the home page
+    navigate("/");
+  };
   return (
     <Grid container>
       <Grid item xs={2}>
@@ -40,6 +44,9 @@ const Dashboard = () => {
           <ListItem button>
             <ListItemText primary="Menu Item 2" />
           </ListItem>
+          <ListItem button onClick={handleLogout}>
+            <ListItemText primary="Logout" />
+          </ListItem>
           {/* Add more ListItem components for additional menu items */}
         </List>
       </Grid>
@@ -48,6 +55,7 @@ const Dashboard = () => {
           <Typography variant="h5">User Info</Typography>
           <Typography>Name: {userInfo?.first_name}</Typography>
         </Paper>
+        <UserFieldDetails userInfo={userInfo} />
       </Grid>
     </Grid>
   );

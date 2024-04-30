@@ -7,6 +7,7 @@ import router from "./routes/routes.js";
 import auth from "./routes/auth.js";
 import user from "./routes/user.js";
 import passport from "passport";
+import process from "process";
 
 // Create an Express application
 const app = express();
@@ -19,7 +20,7 @@ app.use(json());
 app.use(cors());
 app.use(
   session({
-    secret: "bellaco",
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
     cookie: {

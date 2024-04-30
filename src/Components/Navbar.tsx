@@ -1,11 +1,12 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-import { fetchUserData } from "../store/userSlice";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   return (
-    <Container maxWidth="false">
+    <Container maxWidth={false}>
       <Box
         sx={{
           display: "flex",
@@ -19,7 +20,16 @@ const Navbar = () => {
             Hello,Sign in
           </Button>
           <Button variant="contained">Sign up</Button>
-          <Button variant="contained" component={Link} to="/signIn">
+          <Button
+            variant="contained"
+            onClick={() => {
+              if (!token) {
+                navigate("/signIn");
+              } else {
+                navigate("dashboard/cart");
+              }
+            }}
+          >
             Cart
           </Button>
         </Box>

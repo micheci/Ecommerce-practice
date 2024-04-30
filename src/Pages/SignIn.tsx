@@ -7,7 +7,7 @@ import {
   Link,
   Container,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { SignInData } from "../Interfaces/auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const SignIn = () => {
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.token}`;
-
+        console.log("die");
         // redirect to new page
         navigate("/dashboard");
       } else {
