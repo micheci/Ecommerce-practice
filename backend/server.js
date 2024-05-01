@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import router from "./routes/routes.js";
 import auth from "./routes/auth.js";
 import user from "./routes/user.js";
+import cart from "./routes/cart.js";
 import passport from "passport";
 import process from "process";
 
@@ -35,6 +36,7 @@ app.use(passport.session());
 app.use("/", router);
 app.use("/auth", auth);
 app.use("/user", user);
+app.use("/cart", cart);
 
 // Start the server
 app.listen(port, () => {

@@ -15,8 +15,8 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
-    console.log(isAuthenticated, "isAuthenticated");
-  }, [isAuthenticated]);
+  }, []); // Removed isAuthenticated from the dependency array
+
   return (
     <>
       <BrowserRouter>
