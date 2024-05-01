@@ -31,14 +31,14 @@ const ProductsGrid = ({ selectedCategory }) => {
   return (
     <Grid container spacing={2}>
       {selectedCategory && filteredProducts1
-        ? filteredProducts1.map((item: itemDataProps, item_id: number) => (
-            <Grid item xs={12} sm={6} md={3} key={item_id}>
+        ? filteredProducts1.map((item: itemDataProps, items_id: number) => (
+            <Grid item xs={12} sm={6} md={3} key={items_id}>
               <Product {...item} />
             </Grid>
           ))
         : allItems &&
-          allItems.map((item: itemDataProps, item_id: number) => (
-            <Grid item xs={12} sm={6} md={3} key={item_id}>
+          allItems.map((item: itemDataProps, items_id: number) => (
+            <Grid item xs={12} sm={6} md={3} key={items_id}>
               <Product {...item} />
             </Grid>
           ))}

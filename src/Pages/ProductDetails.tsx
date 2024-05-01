@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { blueGrey, red, lightGreen, blue } from "@mui/material/colors";
+import { useAppDispatch } from "../store/store";
 
 import {
   Box,
@@ -15,6 +16,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import { addCartItems } from "../store/cartSlice";
 
 interface Product {
   id: number;
@@ -36,9 +38,15 @@ const product: Product = {
 };
 
 const ProductDetails = () => {
-  const { id } = useParams<{ id: string }>();
-
+  const { item_id } = useParams<{ id: string }>();
+  const dispatch = useAppDispatch();
   // Fetch product data based on `id` and display it
+
+  // Getting function from store to send item to cart in db
+  const handleAddToCart = () => {
+    // Send the item to the cart in the database
+    dispatch(addCartItems({ userId: 1, itemId: 2 })); // Redirect the user to the cart page
+  };
 
   return (
     <Box marginX="auto" marginTop={4} maxWidth="lg">
@@ -57,7 +65,7 @@ const ProductDetails = () => {
             Size:
             <Select
               value={product.size}
-              onChange={(event) => {
+              onChange={() => {
                 /* handle size change */
               }}
             >
@@ -136,6 +144,7 @@ const ProductDetails = () => {
           </FormControl>{" "}
           <Box mt={2}>
             <Button
+              onClick={handleAddToCart}
               variant="contained"
               color="primary"
               style={{ width: "100%" }}

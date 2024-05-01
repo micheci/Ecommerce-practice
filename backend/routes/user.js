@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id; // Extract the userId from req.user and we get it from auhenicateToken
-    const result = await pool.query("SELECT * FROM users where id = $1", [
+    const result = await pool.query("SELECT * FROM users where users_id = $1", [
       userId,
     ]);
     res.json(result.rows);

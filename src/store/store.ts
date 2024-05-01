@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import todoReducer from "./todoSlice"
 import heroBannerReducer from "./heroBannerSlice"
 import userReducer from "./userSlice";
+import cartReducer from "./cartSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 
 export const store = configureStore({reducer:{
     todo:todoReducer,
     heroBanner:heroBannerReducer,
-    user:userReducer
+    user:userReducer,
+    cart:cartReducer
 }});
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
       return;
     }
     if (await bcrypt.compare(password, userNameResult.rows[0].password)) {
-      const userId = userNameResult.rows[0].id;
+      const userId = userNameResult.rows[0].users_id;
       console.log("Signing token with user ID:", userId);
       const token = jwt.sign({ id: userId }, process.env.SECRET_KEY, {
         expiresIn: "1h",
